@@ -3,8 +3,13 @@ CREATE KEYSPACE IF NOT EXISTS media_keyspace
 WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
 
 # Table
-CREATE TABLE IF NOT EXISTS media_keyspace.media (
-    media_id INT PRIMARY KEY,
-    title TEXT
+CREATE TABLE IF NOT EXISTS media_keyspace.video_chunks (
+    video_id UUID,
+    chunk_index INT,
+    video_name TEXT,
+    chunk_data BLOB,
+    content_type TEXT,
+    created_at TIMESTAMP,
+    PRIMARY KEY (video_id, chunk_index)
 );
 
