@@ -3,7 +3,7 @@ from cassandra.cluster import Cluster
 from cassandra.auth import PlainTextAuthProvider
 
 # Initialize Flask app
-app = Flask(_name_)
+app = Flask(__name__)
 
 # Cassandra connection setup (modify with your details)
 def get_cassandra_session():
@@ -75,5 +75,5 @@ def check_cassandra_status():
         return jsonify({"message": "Cassandra connection failed!"}), 500
 
 # Start the Flask app
-if _name_ == '_main_':
+if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)  # Runs on port 5000 by default
