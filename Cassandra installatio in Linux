@@ -1,0 +1,15 @@
+sudo docker pull cassandra
+
+
+sudo docker run --name cassandra -d -p 9042:9042 cassandra
+
+
+sudo docker ps
+
+
+sudo docker start cassandra
+
+
+udo docker exec -it cassandra bash
+root@d5f3f4a64b0b:/# cqlsh
+
