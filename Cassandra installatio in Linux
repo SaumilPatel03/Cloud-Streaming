@@ -10,6 +10,6 @@ sudo docker ps
 sudo docker start cassandra
 
 
-udo docker exec -it cassandra bash
+sudo docker exec -it cassandra bash
 root@d5f3f4a64b0b:/# cqlsh
 
