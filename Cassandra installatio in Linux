@@ -1,3 +1,10 @@
+Once Docker is configured and ready to work, run below commands for cassandra installation in linux
+
+
+
+
+
+
 sudo docker pull cassandra
 
 
