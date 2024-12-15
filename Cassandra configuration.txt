@@ -5,13 +5,23 @@ WITH replication = {
     'datacenter1': 3  -- Replication factor of 3 across 3 nodes (datacenter1 is a placeholder for your datacenter name)
 };
 
--- Step 2: Create the Table
-CREATE TABLE IF NOT EXISTS media_keyspace.video_chunks (
-    video_id UUID,
-    chunk_index INT,
-    video_name TEXT,
-    chunk_data BLOB,
-    content_type TEXT,
-    created_at TIMESTAMP,
-    PRIMARY KEY (video_id, chunk_index)
+
+CREATE TABLE video_metadata (
+    video_id UUID PRIMARY KEY,           -- Unique identifier for the video
+    title TEXT,                          -- Title of the video
+    description TEXT,                    -- Video description
+    upload_date TIMESTAMP,               -- Timestamp when the video was uploaded
+    duration INT,                        -- Duration of the video in seconds
+    file_path TEXT,                      -- Path to the full video file in storage (e.g., S3)
+    resolution TEXT,                     -- Resolution of the video (e.g., 1080p, 4K)
+    bitrate INT                          -- Bitrate of the video (kbps)
+);
+
+CREATE TABLE video_chunks (
+    video_id UUID,                      -- Foreign key referencing `video_metadata`
+    chunk_number INT,                   -- Order of the chunk
+    chunk_size INT,                     -- Size of the chunk in bytes
+    chunk_path TEXT,                    -- Path to the chunk in storage (e.g., S3 bucket)
+    resolution TEXT,                    -- Resolution of this chunk (e.g., 1080p, 4K)
+    PRIMARY KEY ((video_id, resolution), chunk_number)
 );
