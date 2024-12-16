@@ -1,15 +1,23 @@
 # Create Keyscape
 CREATE KEYSPACE IF NOT EXISTS media_keyspace 
-WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
+WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 2};
 
 # Table
-CREATE TABLE IF NOT EXISTS media_keyspace.video_chunks (
+CREATE TABLE metadata (
+    video_id UUID PRIMARY KEY,
+    title TEXT,
+    description TEXT,
+    upload_timestamp TIMESTAMP,
+    chunk_count INT,
+    media_servers LIST<TEXT>,
+    chunk_size INT
+);
+
+CREATE TABLE video_chunks (
     video_id UUID,
     chunk_index INT,
-    video_name TEXT,
     chunk_data BLOB,
-    content_type TEXT,
-    created_at TIMESTAMP,
+    media_server TEXT,
     PRIMARY KEY (video_id, chunk_index)
-);
+) WITH CLUSTERING ORDER BY (chunk_index ASC);
 
